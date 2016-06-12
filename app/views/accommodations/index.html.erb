@@ -1,0 +1,79 @@
+<%=	 render 'shared/header' %>
+
+<!-- Page Content -->
+<div class="container">
+
+  <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
+  <%= cookies[:remember_token] %>
+
+  <!-- Jumbotron Header -->
+  <header class="jumbotron hero-spacer" >
+    <h2 style="text-align: center">The Islands of the Caribbean</h2>
+    <p style="text-align: center">Browse our selection of hotels, tours and activities to plan your warm weather vacation.</p>
+    <img src='http://www.caribbean.com/images/Nevis-fleurs.jpg' class="img-responsive center-block">
+  </header>
+
+  <hr>
+
+  <!-- Title -->
+  <div class="row padding">
+    <div class="col-lg-12">
+      <h3>Search Hotels</h3>
+    </div>
+  </div>
+  <!-- /.row -->
+
+  <div class="row padding">
+    <div class="well">
+      <div id="countries">
+        <%= form_tag({controller: "accommodations", action: "searchByCountry"}, method: "get", id: "search_form_country", enforce_utf8: false, :remote => true) do %>
+            <input type="text" id="country_name" placeholder="By destination country..." class="search-box"/>
+            <%= hidden_field_tag(:country_id, "1") %>
+            <%= hidden_field_tag(:search_type, "country") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row padding">
+    <div class="well">
+      <div id="hotels">
+        <%= form_tag({controller: "accommodations", action: "searchByHotelName"}, method: "get", id: "search_form_hotel", enforce_utf8: false, :remote => true) do %>
+            <input type="text" id="hotel_name" placeholder="By hotel name..." class="search-box"/>
+            <%= hidden_field_tag(:hotel_id, "") %>
+            <%= hidden_field_tag(:search_type, "hotel") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <div id="search_results">
+    <%= render partial: 'accommodations/results', locals: {accommodations: @accommodations} %>
+  </div>
+
+  <hr>
+
+  <!-- Container for the signup modal which will be loaded via jQuery -->
+  <div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal loaded here -->
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+<!-- /.container -->
+
+
+<%=	 render 'shared/footer' %>
+
+</body>
+</html>

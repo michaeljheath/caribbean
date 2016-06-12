@@ -1,0 +1,38 @@
+<!-- Page Features -->
+<div id="accommodations" class="row text-center">
+    <% @accommodations.each do |accommodation| %>
+        <div class="col-md-3 col-sm-6 hero-feature">
+          <div class="thumbnail">
+            <div class="caption">
+              <h4 class="listing-caption"><%= accommodation.name %></h4>
+              <p>
+
+                <a href="<%= accommodation.affliiate_url %>" class="btn btn-primary" target="_blank">Book Now!</a>
+                <% if(cookies[:remember_token].nil?) %>
+                    <a href="/signup" id="signup" class="btn btn-info" data-toggle="modal" data-target="#modal-register">More Info</a>
+                <% else %>
+                    <a href="/accommodations/show?<%= accommodation.id %>" class="btn btn-info">More Info</a>
+                <% end %>
+
+              </p>
+            </div>
+          </div>
+        </div>
+    <% end %>
+</div>
+<!-- /.row -->
+
+<% if @accommodations.length > 1 %>
+    <!-- Load More -->
+    <div id="load_more" class="row padding">
+      <div class="col-md-12">
+        <% if @accommodations.current_page != @accommodations.total_pages %>
+            <form id="load_form" data-remote="true" action="/accommodations/loadMoreResults?page=<%=@accommodations.next_page%>" class="form">
+              <%= hidden_field_tag(:more_country_id, "0") %>
+              <input id="load_more_submit" value="List More" type="submit" class="btn btn-primary center-block">
+            </form>
+        <% end %>
+      </div>
+    </div>
+    <!-- /.row -->
+<% end %>
