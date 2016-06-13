@@ -1,0 +1,44 @@
+<%=	 render 'shared/header' %>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8">
+
+      <!-- Title -->
+      <h3><%= @accommodation.name %></h3>
+
+      <!-- Preview Image -->
+      <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+      <hr>
+      <!-- Accommodation details -->
+      <p class="lead">Address:</p>
+      <p class="lead">Phone:</p>
+      <p class="lead">Email:</p>
+
+      <p>
+        <%= @accommodation.description %>
+      </p>
+
+      <hr>
+    </div>
+
+      <!-- Sidebar Widgets Column -->
+    <div class="col-md-4" style="padding-top: 55px;">
+        <!-- Blog Search Well -->
+        <div class="well">
+          <h4 class="text-center">Check rates</h4>
+          <div class="alert-info text-center" style="min-height: 35px;">Expedia</div>
+          <div class="alert-success text-center" style="min-height: 35px;">Travelocity</div>
+          <div class="alert-info text-center" style="min-height: 35px;">Hotels.com</div>
+          <div class="alert-success text-center" style="min-height: 35px;">Orbitz</div>
+          <!-- /.input-group -->
+        </div>
+    </div>
+  </div>
+    <!-- /.row -->
+</div>
+
+<%=	 render 'shared/footer' %>
+
+

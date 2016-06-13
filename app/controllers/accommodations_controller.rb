@@ -25,7 +25,8 @@ class AccommodationsController < ApplicationController
   end
 
   def show
-    @accommodation = getAccommodationById(params[:accommodation_id])
+    puts('*****' + params[:id])
+    @accommodation = Accommodation.find(params[:id])
   end
 
   #searchByCountry hotels by country
