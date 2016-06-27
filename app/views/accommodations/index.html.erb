@@ -1,18 +1,10 @@
-<%=	 render 'shared/header' %>
+<div class="row banner-background banner-text">
+  <h1 style="text-align: center">The Islands of the Caribbean</h1>
+  <h3 style="text-align: center">Browse our selection of hotels, tours and activities to plan your warm weather vacation.</h3>
+</div>
 
 <!-- Page Content -->
 <div class="container">
-
-  <% flash.each do |key, value| %>
-      <div class="alert alert-<%= key %>"><%= value %></div>
-  <% end %>
-
-  <!-- Jumbotron Header -->
-  <header class="jumbotron hero-spacer" >
-    <h2 style="text-align: center">The Islands of the Caribbean</h2>
-    <p style="text-align: center">Browse our selection of hotels, tours and activities to plan your warm weather vacation.</p>
-    <img src='http://www.caribbean.com/images/Nevis-fleurs.jpg' class="img-responsive center-block">
-  </header>
 
   <hr>
 
@@ -56,14 +48,7 @@
 
   <hr>
 
-  <!-- Container for the signup modal which will be loaded via jQuery -->
-  <div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- Modal loaded here -->
-      </div>
-    </div>
-  </div>
+
 
 
 
@@ -71,7 +56,3 @@
 <!-- /.container -->
 
 
-<%=	 render 'shared/footer' %>
-
-</body>
-</html>

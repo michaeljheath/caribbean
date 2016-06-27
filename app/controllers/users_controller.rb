@@ -5,15 +5,21 @@ class UsersController < ApplicationController
   end
 
   def new
+    #store the hotel id for redirect following successful register
+    hotel_id = params[:hotel_id]
+    session[:hotel_id] = hotel_id
+
     @user = User.new
+    render partial: 'users/new'
   end
 
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = 'You have successfully registered! You are now able to access all specials.'
       remember @user
-      redirect_to root_url
+      flash[:success] = 'You have successfully registered! You are now able to access all specials.'
+      redirect_to "/accommodations/#{session[:hotel_id]}"
+      session[:hotel_id] = nil
     end
   end
 

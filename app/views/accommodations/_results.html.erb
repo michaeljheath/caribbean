@@ -3,17 +3,18 @@
     <% @accommodations.each do |accommodation| %>
         <div class="col-md-3 col-sm-6 hero-feature">
           <div class="thumbnail">
-            <%= image_tag "/assets/#{accommodation.id}/1.jpg", alt: 'default', class: 'thumbnail-img' %>
+
+            <% if File.exist?("/assets/#{accommodation.accommodation_id}/1.jpg") %>
+                <%= image_tag "/assets/#{accommodation.accommodation_id}/1.jpg", alt: 'default', class: 'thumbnail-img' %>
+            <% else %>
+                <%= image_tag "/assets/default.jpg", alt: 'default', class: 'thumbnail-img' %>
+            <% end %>
+
             <div class="caption">
               <h4 class="listing-caption"><%= accommodation.name %></h4>
               <p>
-                <a href="<%= accommodation.affliiate_url %>" class="btn btn-primary" target="_blank">Book Now!</a>
-                <!--<% if(cookies[:remember_token].nil?) %>
-                    <a href="/signup" id="signup" class="btn btn-info" data-toggle="modal" data-target="#modal-register">More Info</a>
-                <% else %>
-                <% end %> -->
+                <a href="<%= accommodation.affiliate_url %>" class="btn btn-primary" target="_blank">Book Now!</a>
                 <%= link_to 'More Info', accommodation_path(accommodation), :class => 'btn btn-info' %>
-
               </p>
             </div>
           </div>

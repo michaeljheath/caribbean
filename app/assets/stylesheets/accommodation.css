@@ -29,3 +29,16 @@
 .listing-caption {min-height: 38px;}
 
 
+.banner-background {
+    background: url('/assets/Nevis-fleurs.jpg') no-repeat;
+    min-height: 500px;
+    width: 100%;
+    background-size: cover;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    margin-top: -20px;
+}
+
+.banner-text{
+    text-align: center;
+}
