@@ -42,3 +42,7 @@
 .banner-text{
     text-align: center;
 }
+
+select{
+    font-size: large;!important;
+}

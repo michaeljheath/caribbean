@@ -4,7 +4,7 @@ class AccommodationsController < ApplicationController
   #return data for hotel name autocomplete
   def autocomplete
     hotelsHash = []
-    hotels = Accommodation.where('name LIKE ?', "%#{params[:query]}%").pluck(:name, :accommodation_id)
+    hotels = Accommodation.where('name LIKE ?', "%#{params[:query]}%").pluck(:name, :accommodation_id).order(:name)
 
     hotels.each do |h|
       hotelsHash << {
@@ -17,30 +17,48 @@ class AccommodationsController < ApplicationController
 
   #load a default set of hotels
   def index
-    countryId = params[:country_id]
-    if countryId.nil?
-      countryId = 1
+    locationId = params[:location_id]
+    if locationId.nil?
+      locationId = 1
     end
-    @accommodations = getAccommodationsByCountry(countryId)
+    @accommodations = getAccommodationsByLocation(locationId)
   end
 
   def show
     @accommodation = Accommodation.find(params[:id])
   end
 
-  #searchByCountry hotels by country
+  # hotels by country
   def searchByCountry
     countryId = params[:country_id]
-    @accommodations = getAccommodationsByCountry(countryId)
+    #@accommodations = getAccommodationsByDestination(countryId)
     respond_to do |format|
       format.js
     end
   end
 
-  #load next set of results for searchByCountry by country
+  # hotels by destination
+  def searchByDestination
+    destinationId = params[:destination_id]
+    #@accommodations = getAccommodationsByDestination(destinationId)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  # hotels by locations
+  def searchByLocation
+    locationId = params[:location_id]
+    @accommodations = getAccommodationsByLocation(locationId)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  # load next set of results
   def loadMoreResults
-    countryId = params[:more_country_id]
-    @accommodations = getAccommodationsByCountry(countryId)
+    locationId = params[:more_location_id]
+    @accommodations = getAccommodationsByLocation(locationId)
     respond_to do |format|
       format.js
     end
@@ -54,14 +72,14 @@ class AccommodationsController < ApplicationController
     end
   end
 
-  def getAccommodationsByCountry(id)
-    return Accommodation.where('country_id =?', id).paginate(:page => params[:page],:per_page => 8)
+  def getAccommodationsByLocation(id)
+    return Accommodation.where('location_id =?', id).order(:name).paginate(:page => params[:page],:per_page => 8)
   end
 
   def getAccommodationById(id)
     return Accommodation.where('accommodation_id = ?', id)
   end
 
-  private :getAccommodationsByCountry, :getAccommodationById
+  private :getAccommodationsByLocation, :getAccommodationById
 
 end

@@ -17,14 +17,28 @@
   <!-- /.row -->
 
   <div class="row padding">
-    <div class="well">
-      <div id="countries">
-        <%= form_tag({controller: "accommodations", action: "searchByCountry"}, method: "get", id: "search_form_country", enforce_utf8: false, :remote => true) do %>
-            <input type="text" id="country_name" placeholder="By destination country..." class="search-box"/>
-            <%= hidden_field_tag(:country_id, "1") %>
-            <%= hidden_field_tag(:search_type, "country") %>
-        <% end %>
+    <div class="well" style="padding-bottom: 50px;">
+      <%= form_tag({controller: "accommodations", action: "searchByLocation"}, method: "get", id: "search_form_location", enforce_utf8: false, :remote => true) do %>
+      <div class="col-md-3">
+        <select class="form-control" id="select_country" name="country_id">
+          <option value="0">Select Country</option>
+          <%= options_from_collection_for_select(Country.all, :id, :name) %>
+        </select>
       </div>
+      <div class="col-md-3">
+        <select class="form-control" id="select_destination" name="destination_id" disabled>
+          <option value="0">Select Destination</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control" id="select_location" name="location_id" disabled>
+          <option value="0">Select Location</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <input id="search_submit" value="Search" type="submit" class="btn btn-primary">
+      </div>
+      <% end %>
     </div>
   </div>
 
@@ -47,9 +61,6 @@
   </div>
 
   <hr>
-
-
-
 
 
 </div>

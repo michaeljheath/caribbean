@@ -1,3 +1,3 @@
 class Country < ActiveRecord::Base
-  has_many :accommodations
+  has_many :destinations
 end
