@@ -22,7 +22,7 @@
       <div class="col-md-3">
         <select class="form-control" id="select_country" name="country_id">
           <option value="0">Select Country</option>
-          <%= options_from_collection_for_select(Country.all, :id, :name) %>
+          <%= options_from_collection_for_select(Country.all, :country_id, :name) %>
         </select>
       </div>
       <div class="col-md-3">

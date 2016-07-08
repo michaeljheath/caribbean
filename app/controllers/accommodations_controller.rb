@@ -4,7 +4,7 @@ class AccommodationsController < ApplicationController
   #return data for hotel name autocomplete
   def autocomplete
     hotelsHash = []
-    hotels = Accommodation.where('name LIKE ?', "%#{params[:query]}%").pluck(:name, :accommodation_id).order(:name)
+    hotels = Accommodation.where('name LIKE ?', "%#{params[:query]}%").order(:name).pluck(:name, :accommodation_id)
 
     hotels.each do |h|
       hotelsHash << {

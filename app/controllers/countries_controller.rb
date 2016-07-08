@@ -1,7 +1,7 @@
 class CountriesController < ApplicationController
   def autocomplete
     countriesHash = []
-    countries = Country.where('name LIKE ?', "%#{params[:query]}%").pluck(:name, :id)
+    countries = Country.where('name LIKE ?', "%#{params[:query]}%").pluck(:name, :country_id)
     countries.each do |c|
       countriesHash << {
           :value => c[0],

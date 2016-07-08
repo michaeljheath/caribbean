@@ -4,7 +4,12 @@
 
 $(document).ready(function () {
 
+    $(this).ajaxSuccess( function(event, jqXHR, ajaxInfo, data) {
+        console.log(event.eventName + 'ajax returned.');
+    })
+
     $("#select_country").change(function () {
+        console.log('abled.');
         $("#select_destination").prop("disabled", false);
         $.ajax({
             url: "/destinations/getDestinationsByCountry", // this will be routed

@@ -3,7 +3,7 @@ class DestinationsController < ApplicationController
 
   def autocomplete
     destinationHash = []
-    destinations = Destination.where('name LIKE ?', "%#{params[:query]}%").pluck(:name, :id)
+    destinations = Destination.where('name LIKE ?', "%#{params[:query]}%").pluck(:name, :destination_id)
     destinations.each do |c|
       destinationHash << {
           :value => c[0],
@@ -14,7 +14,7 @@ class DestinationsController < ApplicationController
   end
 
   def getDestinationsByCountry
-    @destinations = Destination.where('country_id = ?', params[:country_id]).pluck(:name, :id)
+    @destinations = Destination.where('country_id = ?', params[:country_id]).pluck(:name, :destination_id)
     render json: @destinations
   end
 
