@@ -2,14 +2,20 @@
  * Created by michaelheath on 2016-06-05.
  */
 
-$(document).ready(function () {
+document.addEventListener("turbolinks:load",function () {
 
-    $(this).ajaxSuccess( function(event, jqXHR, ajaxInfo, data) {
-        console.log(event.eventName + 'ajax returned.');
+
+    $(this).ajaxSend( function(event, jqXHR, ajaxInfo, data) {
+        $("#modal-ajax-spinner").spin('large', '#fff');
+        $('#modal-ajax-spinner').modal("show");
+    })
+
+    $(this).ajaxComplete( function(event, jqXHR, ajaxInfo, data) {
+        $("#modal-ajax-spinner").modal("hide");
+        $("#modal-ajax-spinner").spin(false);
     })
 
     $("#select_country").change(function () {
-        console.log('abled.');
         $("#select_destination").prop("disabled", false);
         $.ajax({
             url: "/destinations/getDestinationsByCountry", // this will be routed
@@ -93,12 +99,6 @@ $(document).ready(function () {
             $('#hotel_id').val(suggestion.data);
             $('#hotel_name').val(suggestion.value);
             $('#search_form_hotel').submit();
-        },
-        onSearchComplete: function (query, suggestions) {
-            $("#hotel_name").removeClass("loadinggif");
-        },
-        onSearchStart: function (query) {
-            $("#hotel_name").addClass("loadinggif");
         }
     });
 });

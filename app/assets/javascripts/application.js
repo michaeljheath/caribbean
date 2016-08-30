@@ -11,7 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
+//= require spin.js
+//= require jquery.spin
 //= require turbolinks
 //= require_tree .
 

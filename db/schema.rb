@@ -11,18 +11,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160609171922) do
+ActiveRecord::Schema.define(version: 20160719162559) do
 
-  create_table "Destination", primary_key: "destination_id", force: :cascade do |t|
-    t.integer "country_id",    limit: 4,   default: 0
-    t.string  "name",          limit: 255, default: ""
-    t.integer "destinationId", limit: 4,                null: false
+  create_table "accommodation", primary_key: "accommodation_id", force: :cascade do |t|
+    t.integer  "location_id",               limit: 4,     default: 0,     null: false
+    t.integer  "accommodation_category_id", limit: 4,     default: 0,     null: false
+    t.string   "name",                      limit: 255,   default: "",    null: false
+    t.integer  "price",                     limit: 4
+    t.string   "telephone",                 limit: 255
+    t.string   "fax",                       limit: 255
+    t.string   "address",                   limit: 255
+    t.string   "email",                     limit: 255
+    t.string   "web_address",               limit: 255
+    t.string   "details",                   limit: 255
+    t.text     "description",               limit: 65535
+    t.integer  "has_beach",                 limit: 1
+    t.integer  "has_casino",                limit: 1
+    t.integer  "is_all_inclusive",          limit: 1
+    t.integer  "is_family_friendly",        limit: 1
+    t.boolean  "show_email"
+    t.boolean  "show_web_address"
+    t.boolean  "show_listings"
+    t.integer  "qualification_level",       limit: 1
+    t.datetime "time_created"
+    t.datetime "time_modified",                                           null: false
+    t.integer  "customer_id",               limit: 4
+    t.integer  "num_photos",                limit: 4,     default: 0
+    t.boolean  "has_internet",                            default: false
+    t.boolean  "is_near_golf_course",                     default: false
+    t.boolean  "has_logo",                                default: false
+    t.string   "admin_contact",             limit: 255
+    t.string   "admin_email",               limit: 255
+    t.string   "admin_phone",               limit: 255
+    t.string   "hotel_url",                 limit: 255
+    t.string   "affiliate_url",             limit: 255
   end
 
-  add_index "destination", ["name"], name: "UC_name", unique: true, using: :btree
+  add_index "accommodation", ["name"], name: "index_accommodation_on_name", using: :btree
 
-  create_table "accommodation_category", primary_key: "accommodation_category_id", force: :cascade do |t|
-    t.string "name", limit: 255, default: "", null: false
+  create_table "accommodation_category", force: :cascade do |t|
+    t.string   "name",       limit: 255, default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "accommodation_category", ["name"], name: "UC_name", unique: true, using: :btree
@@ -42,43 +72,6 @@ ActiveRecord::Schema.define(version: 20160609171922) do
   create_table "accommodation_price_range", primary_key: "price_range_id", force: :cascade do |t|
     t.string "price_range", limit: 25, default: "", null: false
   end
-
-  create_table "accommodations", primary_key: "accommodation_id", force: :cascade do |t|
-    t.integer  "destination_id",            limit: 4,     default: 0,     null: false
-    t.integer  "accommodation_category_id", limit: 4,     default: 0
-    t.string   "name",                      limit: 255,   default: "",    null: false
-    t.integer  "price",                     limit: 4
-    t.string   "telephone",                 limit: 255
-    t.string   "fax",                       limit: 255
-    t.string   "address",                   limit: 255
-    t.string   "email",                     limit: 255
-    t.string   "web_address",               limit: 255
-    t.string   "details",                   limit: 255
-    t.text     "description",               limit: 65535
-    t.integer  "has_beach",                 limit: 1
-    t.integer  "has_casino",                limit: 1
-    t.integer  "is_all_inclusive",          limit: 1
-    t.integer  "is_family_friendly",        limit: 1
-    t.boolean  "show_email"
-    t.boolean  "show_web_address"
-    t.boolean  "show_listings"
-    t.integer  "qualification_level",       limit: 1
-    t.datetime "created_at"
-    t.datetime "modified_at"
-    t.integer  "customer_id",               limit: 4
-    t.integer  "num_photos",                limit: 4,     default: 0
-    t.boolean  "has_internet",                            default: false
-    t.boolean  "is_near_golf_course",                     default: false
-    t.boolean  "has_logo",                                default: false
-    t.string   "admin_contact",             limit: 255
-    t.string   "admin_email",               limit: 255
-    t.string   "admin_phone",               limit: 255
-    t.string   "hotel_url",                 limit: 255
-    t.string   "affiliate_url",             limit: 255
-    t.integer  "country_id",                limit: 4
-  end
-
-  add_index "accommodations", ["country_id"], name: "index_accommodations_on_country_id", using: :btree
 
   create_table "activity", primary_key: "activity_id", force: :cascade do |t|
     t.integer  "location_id",          limit: 4,     default: 0,     null: false
@@ -257,12 +250,6 @@ ActiveRecord::Schema.define(version: 20160609171922) do
     t.string "source",                       limit: 100,      default: ""
   end
 
-  create_table "countries", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "country", primary_key: "country_id", force: :cascade do |t|
     t.string "name", limit: 255, default: "", null: false
   end
@@ -288,6 +275,13 @@ ActiveRecord::Schema.define(version: 20160609171922) do
     t.datetime "time_modified",                                null: false
     t.integer  "qualification_level", limit: 1
   end
+
+  create_table "destination", primary_key: "destination_id", force: :cascade do |t|
+    t.integer "country_id", limit: 4,   default: 0,  null: false
+    t.string  "name",       limit: 255, default: "", null: false
+  end
+
+  add_index "destination", ["name"], name: "UC_name", unique: true, using: :btree
 
   create_table "faq", force: :cascade do |t|
     t.integer "destination_id", limit: 4,        default: 0, null: false
@@ -359,13 +353,6 @@ ActiveRecord::Schema.define(version: 20160609171922) do
 
   add_index "handbook_listing_category_ass", ["business_listing_category_id"], name: "business_listing_category_id", using: :btree
   add_index "handbook_listing_category_ass", ["business_listing_id"], name: "business_listing_id", using: :btree
-
-  create_table "hotels", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
 
   create_table "image", primary_key: "image_id", force: :cascade do |t|
     t.string "name", limit: 255, default: "", null: false
@@ -536,11 +523,10 @@ ActiveRecord::Schema.define(version: 20160609171922) do
   create_table "users", force: :cascade do |t|
     t.string   "name",            limit: 255
     t.string   "email",           limit: 255
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
     t.string   "password_digest", limit: 255
     t.string   "remember_digest", limit: 255
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
-  add_foreign_key "accommodations", "countries"
 end
