@@ -19,13 +19,13 @@ class AccommodationsController < ApplicationController
   def index
     locationId = params[:location_id]
     if locationId.nil?
-      locationId = 1
+      locationId = 1 #default it
     end
     @accommodations = getAccommodationsByLocation(locationId)
   end
 
   def show
-    @accommodation = Accommodation.find(params[:id])
+    @accommodation = Accommodation.friendly.find(params[:id])
   end
 
   # hotels by country

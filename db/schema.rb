@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719162559) do
+ActiveRecord::Schema.define(version: 20160901221620) do
 
   create_table "accommodation", primary_key: "accommodation_id", force: :cascade do |t|
     t.integer  "location_id",               limit: 4,     default: 0,     null: false
@@ -45,9 +45,15 @@ ActiveRecord::Schema.define(version: 20160719162559) do
     t.string   "admin_phone",               limit: 255
     t.string   "hotel_url",                 limit: 255
     t.string   "affiliate_url",             limit: 255
+    t.string   "photo_file_name",           limit: 255
+    t.string   "photo_content_type",        limit: 255
+    t.integer  "photo_file_size",           limit: 4
+    t.datetime "photo_updated_at"
+    t.string   "slug",                      limit: 255
   end
 
   add_index "accommodation", ["name"], name: "index_accommodation_on_name", using: :btree
+  add_index "accommodation", ["slug"], name: "index_accommodation_on_slug", using: :btree
 
   create_table "accommodation_category", force: :cascade do |t|
     t.string   "name",       limit: 255, default: "", null: false

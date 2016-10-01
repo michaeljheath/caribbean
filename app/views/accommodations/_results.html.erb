@@ -14,14 +14,33 @@
               <h4 class="listing-caption"><%= accommodation.name %></h4>
               <p>
                 <a href="<%= accommodation.affiliate_url %>" class="btn btn-primary" target="_blank">Book Now!</a>
-                <%= link_to 'More Info', accommodation_path(accommodation), :class => 'btn btn-info' %>
+                <% if(cookies[:remember_token].nil?) %>
+                    <a href="/signup" id="signup" class="btn btn-info" data-toggle="modal" data-target="#modal-register">More Info</a>
+                <% else %>
+                    <%= link_to 'More Info', accommodation_path(accommodation), :class => 'btn btn-info' %>
+                <% end %>
               </p>
             </div>
           </div>
         </div>
     <% end %>
+
+
+
+  <!-- MODAL Signup -->
+  <div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+  <!-- MODAL Signup -->
+
 </div>
 <!-- /.row -->
+
+
 
 <% if @accommodations.length > 1 %>
     <!-- Load More -->
@@ -40,8 +59,12 @@
 
 
 <script>
+
   // set the location id for more results after the search call
   $("#load_form").submit(function( event ) {
     $("#more_location_id").val($("#select_location").val()) ;
   });
+
 </script>
+
+

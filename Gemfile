@@ -17,8 +17,8 @@ gem 'coffee-rails', '~> 4.1.0'
 #gem 'bootstrap-typeahead-rails'
 gem 'responders'
 gem 'will_paginate', '~> 3.1.0'
-gem 'bcrypt',               '3.1.7'
 gem 'jquery-turbolinks'
+gem 'friendly_id', '~> 5.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -30,7 +30,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

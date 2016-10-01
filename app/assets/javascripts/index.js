@@ -101,6 +101,8 @@ document.addEventListener("turbolinks:load",function () {
             $('#search_form_hotel').submit();
         }
     });
+
+
 });
 
 
