@@ -18,13 +18,16 @@
 
   <div class="row padding">
     <div class="well" style="padding-bottom: 50px;">
-      <%= form_tag({controller: "accommodations", action: "searchByLocation"}, method: "get", id: "search_form_location", enforce_utf8: false, :remote => true) do %>
+
+      <%= form_tag({controller: "accommodations", action: "searchByCountry"}, method: "get", id: "search_form_country", enforce_utf8: false, :remote => true) do %>
       <div class="col-md-3">
         <select class="form-control" id="select_country" name="country_id">
           <option value="0">Select Country</option>
           <%= options_from_collection_for_select(Country.all, :country_id, :name) %>
         </select>
       </div>
+      <% end %>
+
       <div class="col-md-3">
         <select class="form-control" id="select_destination" name="destination_id" disabled>
           <option value="0">Select Destination</option>
@@ -38,7 +41,6 @@
       <div class="col-md-3">
         <input id="search_submit" value="Search" type="submit" class="btn btn-primary">
       </div>
-      <% end %>
     </div>
   </div>
 

@@ -31,7 +31,7 @@ class AccommodationsController < ApplicationController
   # hotels by country
   def searchByCountry
     countryId = params[:country_id]
-    #@accommodations = getAccommodationsByDestination(countryId)
+    @accommodations = getAccommodationsByCountry(countryId)
     respond_to do |format|
       format.js
     end
@@ -40,7 +40,7 @@ class AccommodationsController < ApplicationController
   # hotels by destination
   def searchByDestination
     destinationId = params[:destination_id]
-    #@accommodations = getAccommodationsByDestination(destinationId)
+    @accommodations = getAccommodationsByDestination(destinationId)
     respond_to do |format|
       format.js
     end
@@ -72,14 +72,25 @@ class AccommodationsController < ApplicationController
     end
   end
 
+  #private methods
+  def getAccommodationsByCountry(id)
+
+    return Accommodation.find_by_sql('SELECT accommodation.accommodation_id, accommodation.name, accommodation.affiliate_url, accommodation.slug
+                                                FROM accommodation
+                                                INNER JOIN location ON location.location_id = accommodation.location_id
+                                                INNER JOIN destination ON destination.destination_id = location.destination_id
+                                                INNER JOIN country ON country.country_id = destination.destination_id
+                                                WHERE country.country_id = ' + id ).paginate(:page => params[:page],:per_page => 50)
+  end
+
   def getAccommodationsByLocation(id)
-    return Accommodation.where('location_id =?', id).order(:name).paginate(:page => params[:page],:per_page => 8)
+    return Accommodation.where('location_id =?', id).order(:name).paginate(:page => params[:page],:per_page => 50)
   end
 
   def getAccommodationById(id)
     return Accommodation.where('accommodation_id = ?', id)
   end
 
-  private :getAccommodationsByLocation, :getAccommodationById
+  private :getAccommodationsByLocation, :getAccommodationById, :getAccommodationsByCountry
 
 end

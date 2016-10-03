@@ -7,11 +7,11 @@ document.addEventListener("turbolinks:load",function () {
 
     $(this).ajaxSend( function(event, jqXHR, ajaxInfo, data) {
         $("#modal-ajax-spinner").spin('large', '#fff');
-        $('#modal-ajax-spinner').modal("show");
+        //$('#modal-ajax-spinner').modal("show");
     })
 
     $(this).ajaxComplete( function(event, jqXHR, ajaxInfo, data) {
-        $("#modal-ajax-spinner").modal("hide");
+        //$("#modal-ajax-spinner").modal("hide");
         $("#modal-ajax-spinner").spin(false);
     })
 
@@ -36,8 +36,7 @@ document.addEventListener("turbolinks:load",function () {
                 });
             }
         });
-
-
+        $("#search_form_country").submit();
     })
     
     $("#select_destination").change(function () {
