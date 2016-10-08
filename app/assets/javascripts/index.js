@@ -36,6 +36,9 @@ document.addEventListener("turbolinks:load",function () {
                 });
             }
         });
+        $("#current_geo_id").val($("#select_country").val());
+        $("#current_search_type").val("country");
+
         $("#search_form_country").submit();
     })
     
@@ -60,30 +63,19 @@ document.addEventListener("turbolinks:load",function () {
                 });
             }
         });
+        $("#current_geo_id").val( $("#select_destination").val()) ;
+        $("#current_search_type").val("destination");
+
+        $("#search_form_destination").submit();
     })
 
     $("#select_location").change(function () {
-        $("#more_location_id").val( $("#select_location").val()) ;
+        $("#current_geo_id").val( $("#select_location").val()) ;
+        $("#current_search_type").val("location");
+
+        $("#search_form_location").submit();
     })
-    
-    /*
-    $('#destination_name').autocomplete({
-        serviceUrl: '/destinations/autocomplete',
-        transformResult: function(response) {
-            return {
-                suggestions: $.map($.parseJSON(response), function(dataItem) {
-                    return { value: dataItem.value, data: dataItem.data };
-                })
-            };
-        },
-        onSelect: function (suggestion) {
-            $('#destination_id').val(suggestion.data);
-            $('#destination_name').val(suggestion.value);
-            $("#destination_name").addClass("loadinggif");
-            $('#search_form_dest').submit();
-        }
-    });
-    */
+
 
     $('#hotel_name').autocomplete({
         serviceUrl: '/accommodations/autocomplete',

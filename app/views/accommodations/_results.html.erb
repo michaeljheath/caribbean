@@ -1,28 +1,29 @@
 <!-- Page Features -->
 <div id="accommodations" class="row text-center">
     <% @accommodations.each do |accommodation| %>
-        <div class="col-md-3 col-sm-6 hero-feature">
+      <div class="col-md-6 hero-feature">
+        <div class="caption">
+          <h4 class="listing-caption"><%= accommodation.name %></h4>
+          <p>
+            <a href="<%= accommodation.affiliate_url %>" class="btn btn-primary" target="_blank">Book Now!</a>
+            <% if(cookies[:remember_token].nil?) %>
+                <a href="/signup" id="signup" class="btn btn-info" data-toggle="modal" data-target="#modal-register">More Info</a>
+            <% else %>
+                <%= link_to 'More Info', accommodation_path(accommodation), :class => 'btn btn-info' %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+        <div class="col-md-6 hero-feature">
           <div class="thumbnail">
-
             <% if File.exist?("#{Rails.root}/app/assets/images/#{accommodation.accommodation_id}/1.jpg") %>
                 <%= image_tag "/assets/#{accommodation.accommodation_id}/1.jpg", alt: 'default', class: 'thumbnail-img' %>
             <% else %>
                 <%= image_tag "/assets/default.jpg", alt: 'default', class: 'thumbnail-img' %>
             <% end %>
-
-            <div class="caption">
-              <h4 class="listing-caption"><%= accommodation.name %></h4>
-              <p>
-                <a href="<%= accommodation.affiliate_url %>" class="btn btn-primary" target="_blank">Book Now!</a>
-                <% if(cookies[:remember_token].nil?) %>
-                    <a href="/signup" id="signup" class="btn btn-info" data-toggle="modal" data-target="#modal-register">More Info</a>
-                <% else %>
-                    <%= link_to 'More Info', accommodation_path(accommodation), :class => 'btn btn-info' %>
-                <% end %>
-              </p>
-            </div>
           </div>
         </div>
+
     <% end %>
 
 
@@ -48,7 +49,8 @@
       <div class="col-md-12">
         <% if @accommodations.current_page != @accommodations.total_pages %>
             <form id="load_form" data-remote="true" action="/accommodations/loadMoreResults?page=<%=@accommodations.next_page%>" class="form">
-              <%= hidden_field_tag(:more_location_id, "0") %>
+              <%= hidden_field_tag(:geo_id, "") %>
+              <%= hidden_field_tag(:search_type, "") %>
               <input id="load_more_submit" value="List More" type="submit" class="btn btn-primary center-block">
             </form>
         <% end %>
@@ -57,14 +59,22 @@
     <!-- /.row -->
 <% end %>
 
-
 <script>
 
-  // set the location id for more results after the search call
-  $("#load_form").submit(function( event ) {
-    $("#more_location_id").val($("#select_location").val()) ;
+  $(document).ready(function () {
+
+    $("#geo_id").val($("#current_geo_id").val()) ;
+    $("#search_type").val($("#current_search_type").val());
+
+    // set the geo id for more results after the search call
+    $("#load_form").submit(function( event ) {
+
+      console.log($("#geo_id").val()) ;
+      console.log($("#search_type").val());
+
+    });
   });
 
-</script>
 
+</script>
 

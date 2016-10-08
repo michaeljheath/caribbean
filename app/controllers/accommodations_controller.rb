@@ -17,11 +17,11 @@ class AccommodationsController < ApplicationController
 
   #load a default set of hotels
   def index
-    locationId = params[:location_id]
-    if locationId.nil?
-      locationId = 1 #default it
+    countryId = params[:country_id]
+    if countryId.nil?
+      countryId = '1' #default it
     end
-    @accommodations = getAccommodationsByLocation(locationId)
+    @accommodations = getAccommodationsByCountry(countryId)
   end
 
   def show
@@ -57,8 +57,22 @@ class AccommodationsController < ApplicationController
 
   # load next set of results
   def loadMoreResults
-    locationId = params[:more_location_id]
-    @accommodations = getAccommodationsByLocation(locationId)
+    geoId = params[:geo_id]
+    if geoId == ""
+      geoId = '1'
+    end
+    searchType = params[:search_type]
+    if searchType == ""
+      searchType = 'country'
+    end
+
+    if searchType == 'country'
+      @accommodations = getAccommodationsByCountry(geoId)
+    elsif searchType == 'destination'
+      @accommodations = getAccommodationsByDestination(geoId)
+    elsif searchType == 'location'
+      @accommodations = getAccommodationsByLocation(geoId)
+    end
     respond_to do |format|
       format.js
     end
@@ -79,8 +93,19 @@ class AccommodationsController < ApplicationController
                                                 FROM accommodation
                                                 INNER JOIN location ON location.location_id = accommodation.location_id
                                                 INNER JOIN destination ON destination.destination_id = location.destination_id
-                                                INNER JOIN country ON country.country_id = destination.destination_id
-                                                WHERE country.country_id = ' + id ).paginate(:page => params[:page],:per_page => 50)
+                                                INNER JOIN country ON country.country_id = destination.country_id
+                                                WHERE country.country_id = ' + id  + ' ORDER BY accommodation.name ASC')
+                                                .paginate(:page => params[:page],:per_page => 50)
+  end
+
+  def getAccommodationsByDestination(id)
+
+    return Accommodation.find_by_sql('SELECT accommodation.accommodation_id, accommodation.name, accommodation.affiliate_url, accommodation.slug
+                                                FROM accommodation
+                                                INNER JOIN location ON location.location_id = accommodation.location_id
+                                                INNER JOIN destination ON destination.destination_id = location.destination_id
+                                                WHERE destination.destination_id = ' + id + ' ORDER BY accommodation.name ASC')
+                                                .paginate(:page => params[:page],:per_page => 50)
   end
 
   def getAccommodationsByLocation(id)
