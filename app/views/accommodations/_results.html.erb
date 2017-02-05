@@ -14,11 +14,11 @@
               <h4 class="listing-caption"><%= accommodation.name %></h4>
               <p>
                 <a href="<%= accommodation.affiliate_url %>" class="btn btn-primary" target="_blank">Book Now!</a>
-                <% if(cookies[:remember_token].nil?) %>
+                <!-- <% if(cookies[:remember_token].nil?) %>
                     <a href="/signup" id="signup" class="btn btn-info" data-toggle="modal" data-target="#modal-register">More Info</a>
-                <% else %>
+                <% else %> -->
                     <%= link_to 'More Info', accommodation_path(accommodation), :class => 'btn btn-info' %>
-                <% end %>
+                <!-- <% end %> -->
               </p>
             </div>
           </div>
@@ -48,7 +48,8 @@
       <div class="col-md-12">
         <% if @accommodations.current_page != @accommodations.total_pages %>
             <form id="load_form" data-remote="true" action="/accommodations/loadMoreResults?page=<%=@accommodations.next_page%>" class="form">
-              <%= hidden_field_tag(:more_location_id, "0") %>
+              <%= hidden_field_tag(:search_type, "") %>
+              <%= hidden_field_tag(:geo_id, "") %>
               <input id="load_more_submit" value="List More" type="submit" class="btn btn-primary center-block">
             </form>
         <% end %>
@@ -62,7 +63,9 @@
 
   // set the location id for more results after the search call
   $("#load_form").submit(function( event ) {
-    $("#more_location_id").val($("#select_location").val()) ;
+      //$("#more_country_id").val($("#select_country").val()) ;
+      $("#search_type").val($("#current_search_type").val());
+      $("#geo_id").val( $("#current_geo_id").val()) ;
   });
 
 </script>

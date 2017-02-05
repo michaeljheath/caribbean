@@ -55,14 +55,17 @@ class AccommodationsController < ApplicationController
     end
   end
 
-  # load next set of results
+  #load next set of results
   def loadMoreResults
+
+    #defaults
     geoId = params[:geo_id]
-    if geoId == ""
-      geoId = '1'
-    end
     searchType = params[:search_type]
-    if searchType == ""
+
+    if geoId.nil?
+      geoId = 1
+    end
+    if searchType.nil?
       searchType = 'country'
     end
 
@@ -94,7 +97,7 @@ class AccommodationsController < ApplicationController
                                                 INNER JOIN location ON location.location_id = accommodation.location_id
                                                 INNER JOIN destination ON destination.destination_id = location.destination_id
                                                 INNER JOIN country ON country.country_id = destination.country_id
-                                                WHERE country.country_id = ' + id  + ' ORDER BY accommodation.name ASC')
+                                                WHERE country.country_id = ' + id  + ' AND accommodation.show_listings = 1 ORDER BY accommodation.name ASC')
                                                 .paginate(:page => params[:page],:per_page => 50)
   end
 
@@ -104,12 +107,12 @@ class AccommodationsController < ApplicationController
                                                 FROM accommodation
                                                 INNER JOIN location ON location.location_id = accommodation.location_id
                                                 INNER JOIN destination ON destination.destination_id = location.destination_id
-                                                WHERE destination.destination_id = ' + id + ' ORDER BY accommodation.name ASC')
+                                                WHERE destination.destination_id = ' + id + ' AND accommodation.show_listings = 1 ORDER BY accommodation.name ASC')
                                                 .paginate(:page => params[:page],:per_page => 50)
   end
 
   def getAccommodationsByLocation(id)
-    return Accommodation.where('location_id =?', id).order(:name).paginate(:page => params[:page],:per_page => 50)
+    return Accommodation.where('location_id =? AND show_listings = 1', id).order(:name).paginate(:page => params[:page],:per_page => 50)
   end
 
   def getAccommodationById(id)

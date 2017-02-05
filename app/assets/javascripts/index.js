@@ -36,6 +36,7 @@ document.addEventListener("turbolinks:load",function () {
                 });
             }
         });
+
         $("#current_geo_id").val($("#select_country").val());
         $("#current_search_type").val("country");
 

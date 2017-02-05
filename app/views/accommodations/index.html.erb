@@ -60,18 +60,20 @@
   </div>
   <hr>
 
-  <div id="search_results">
-    <%= render partial: 'accommodations/results', locals: {accommodations: @accommodations} %>
-  </div>
-
-  <hr>
-
   <div style="display: none">
     <form id="search_helper">
       <%= hidden_field_tag(:current_search_type, "") %>
       <%= hidden_field_tag(:current_geo_id, "") %>
     </form>
   </div>
+
+  <div id="search_results">
+    <%= render partial: 'accommodations/results', locals: {accommodations: @accommodations} %>
+  </div>
+
+  <hr>
+
+
 
 </div>
 <!-- /.container -->
