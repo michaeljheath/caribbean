@@ -39,11 +39,7 @@
       <div class="well">
         <p>
           <a href="<%= @accommodation.affiliate_url %>" class="btn btn-primary" target="_blank">Book with Expedia</a>
-          <% if(cookies[:remember_token].nil?) %>
-              <a href="/signup?hotel_id=<%= @accommodation.id %>" id="signup" class="btn btn-info" role="button" data-toggle="modal" data-target="#modal-register">Book direct with Hotel</a>
-          <% else %>
-              <%= link_to 'Book direct with Hotel', @accommodation.hotel_url, :class => 'btn btn-info' %>
-          <% end %>
+          <%= link_to 'Book direct with Hotel', @accommodation.web_address, :class => 'btn btn-info' %>
         </p>
       </div>
 
