@@ -92,7 +92,7 @@ class AccommodationsController < ApplicationController
   #private methods
   def getAccommodationsByCountry(id)
 
-    return Accommodation.find_by_sql('SELECT accommodation.accommodation_id, accommodation.name, accommodation.affiliate_url, accommodation.slug
+    return Accommodation.find_by_sql('SELECT accommodation.accommodation_id, accommodation.name, accommodation.affiliate_url, accommodation.photo_file_name, accommodation.slug
                                                 FROM accommodation
                                                 INNER JOIN location ON location.location_id = accommodation.location_id
                                                 INNER JOIN destination ON destination.destination_id = location.destination_id
@@ -103,7 +103,7 @@ class AccommodationsController < ApplicationController
 
   def getAccommodationsByDestination(id)
 
-    return Accommodation.find_by_sql('SELECT accommodation.accommodation_id, accommodation.name, accommodation.affiliate_url, accommodation.slug
+    return Accommodation.find_by_sql('SELECT accommodation.accommodation_id, accommodation.name, accommodation.affiliate_url, accommodation.photo_file_name, accommodation.slug
                                                 FROM accommodation
                                                 INNER JOIN location ON location.location_id = accommodation.location_id
                                                 INNER JOIN destination ON destination.destination_id = location.destination_id
