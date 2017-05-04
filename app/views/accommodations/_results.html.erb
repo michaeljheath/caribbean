@@ -4,11 +4,11 @@
         <div class="col-md-3 col-sm-6 hero-feature">
           <div class="thumbnail">
 
-            <% if File.exist?("#{Rails.root}/app/assets/images/#{accommodation.accommodation_id}/1.jpg") %>
-                <%= image_tag "/assets/#{accommodation.accommodation_id}/1.jpg", alt: 'default', class: 'thumbnail-img' %>
+            <% if accommodation.photo.nil? %>
+                <%= image_tag "#{accommodation.photo.url(:thumb)}", alt: 'default', class: 'thumbnail-img' %>
             <% else %>
-                <%= image_tag "/assets/default.jpg", alt: 'default', class: 'thumbnail-img' %>
-            <% end %>
+                <%= image_tag "#{accommodation.photo.url(:thumb)}", alt: 'default', class: 'thumbnail-img' %>
+          <% end %>
 
             <div class="caption">
               <h4 class="listing-caption"><%= accommodation.name %></h4>
