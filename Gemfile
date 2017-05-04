@@ -19,6 +19,8 @@ gem 'responders'
 gem 'will_paginate', '~> 3.1.0'
 gem 'jquery-turbolinks'
 gem 'friendly_id', '~> 5.1.0'
+gem "paperclip", "~> 5.0.0"
+
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
